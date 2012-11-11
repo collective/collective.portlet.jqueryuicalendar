@@ -6,7 +6,7 @@ version = '1.0'
 setup(name='collective.portlet.jqueryuicalendar',
       version=version,
       description="jQueryUI Calendar portlet to replace stock Plone calendar portlet",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
