@@ -1,0 +1,47 @@
+<div class="portlet portletjQueryUICalendarPortlet"
+    i18n:domain="collective.portlet.jqueryuicalendar">
+
+  <div id="datepicker"></div>
+  <ul tal:define="all_events view/all_events">
+    <tal:events tal:repeat="eventDay all_events">
+      <tal:event tal:repeat="event python:all_events[eventDay]">
+        <li tal:attributes="class string:event-item event-start-date-${event/start}" tal:content="event/title"></li>
+      </tal:event>
+    </tal:events>
+  </ul>
+<script type="text/javascript" tal:content="view/all_events_json"></script>
+<script type="text/javascript">
+
+function hasEventsIn(date){
+    var key = $.datepicker.formatDate('yy-mm-dd', date);
+    if (key in allEventsJSON){
+      return [true, '', '' + allEventsJSON[key].length +' events'];
+    }
+    return [false];
+}
+function hideAllEvents(){
+  $('.event-item').hide();
+}
+function showEvents( dateText){
+    hideAllEvents();
+    console.log(dateText);
+    var dateObj = $.datepicker.parseDate('dd/mm/yy', dateText);
+    var dateStr = $.datepicker.formatDate('yy-mm-dd', dateObj);
+    console.log(dateStr);
+    $('.event-start-date-' + dateStr).show();
+}
+jQuery(function($){
+  hideAllEvents();
+  $('#datepicker').datepicker({
+    inline: true,
+    beforeShowDay: hasEventsIn,
+    onSelect: showEvents
+  });
+});
+</script>
+<style type="text/css">
+.portlet .ui-datepicker {
+width: 100%;
+}
+</style>
+</div>
