@@ -8,6 +8,7 @@ from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.utils import DT2dt
+from Products.Five.browser import BrowserView
 
 class IjQueryUICalendarPortlet(IPortletDataProvider):
     """A portlet
@@ -65,33 +66,6 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('jqueryuicalendarportlet.pt')
 
-    def all_events_json(self):
-        return "var allEventsJSON = %s" % json.dumps(self.all_events())
-
-    def all_events(self):
-        query = self.get_query()
-        catalog = getToolByName(self.context, 'portal_catalog')
-        brains = catalog(**query)
-        events = {}
-        for brain in brains:
-            start = DT2dt(brain.start)
-            start_str = start.strftime('%Y-%m-%d')
-            if start_str not in events:
-                events[start_str] = []
-            events[start_str].append({'uid': brain.UID,
-                                      'title': brain.Title,
-                                      'description': brain.Description,
-                                      'start': start_str,
-                                      'end': brain.end.strftime('%Y-%m-%d')})
-        return events
-
-    def get_query(self):
-        return {'portal_type': 'Event',
-                'review_state': 'published',
-                'sort_on': 'start',
-                'sort_order': 'reverse',
-                'sort_limit': 1000}
-
 class AddForm(base.NullAddForm):
     """Portlet add form.
     """
@@ -99,3 +73,50 @@ class AddForm(base.NullAddForm):
         return Assignment()
 
 
+class EventsQueryView(BrowserView):
+    """this view search for events"""
+    def __call__(self):
+        self.update()
+        return self.index()
+
+    def update(self):
+        self.events = self.get_events()
+        self.set_mimetype()
+
+    def index(self):
+        return json.dumps(self.events)
+
+    def set_mimetype(self):
+        self.request.response.setHeader('Content-type', 'application/json')
+
+    def get_events(self):
+        query = self.get_query()
+        catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog(**query)
+        events = {}
+        for brain in brains:
+            info = self.get_event_info(brain)
+            start_str = info['start']
+            if start_str not in events:
+                events[start_str] = []
+            events[start_str].append(info)
+        return events
+
+    def get_query(self):
+        query = {'portal_type': 'Event',
+                 'review_state': 'published',
+                 'sort_on': 'start',
+                 'sort_order': 'reverse',
+                 'sort_limit': 1000}
+        #let integrators change the query throw the request
+        query.update(self.request.form)
+        return query
+
+    def get_event_info(self, brain):
+        start = DT2dt(brain.start)
+        start_str = start.strftime('%Y-%m-%d')
+        return {'uid': brain.UID,
+                'title': brain.Title,
+                'description': brain.Description,
+                'start': start_str,
+                'end': brain.end.strftime('%Y-%m-%d')}

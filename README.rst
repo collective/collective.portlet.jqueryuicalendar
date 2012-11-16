@@ -18,7 +18,6 @@ jQueryUI
 this portlet use the famous jQueryUI datepicker to let the visitor browse
 your events in the portlet. It makes it easy to theme.
 
-
 Credits and contributions
 =========================
 
@@ -31,7 +30,6 @@ Authors
 - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
 
 .. Contributors
-
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
