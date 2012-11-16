@@ -1,0 +1,6 @@
+.portlet .ui-datepicker {
+width: 100%;
+}
+.portlet .ui-datepicker-today{
+  border: 1px solid green;
+}

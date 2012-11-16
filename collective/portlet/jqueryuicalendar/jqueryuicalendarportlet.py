@@ -114,9 +114,11 @@ class EventsQueryView(BrowserView):
 
     def get_event_info(self, brain):
         start = DT2dt(brain.start)
-        start_str = start.strftime('%Y-%m-%d')
         return {'uid': brain.UID,
+                'url': brain.getURL(),
                 'title': brain.Title,
                 'description': brain.Description,
-                'start': start_str,
-                'end': brain.end.strftime('%Y-%m-%d')}
+                'start': start.strftime('%Y-%m-%d'),
+                'dtstart': brain.start.strftime('%Y-%m-%dT%H:%M%Z'),#2015-10-15T19:00-08:00
+                'end': brain.end.strftime('%Y-%m-%d'),
+                'dtend': brain.end.strftime('%Y-%m-%dT%H:%M%Z')}

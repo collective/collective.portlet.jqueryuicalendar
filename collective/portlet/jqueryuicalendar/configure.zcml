@@ -33,4 +33,10 @@
       class=".jqueryuicalendarportlet.EventsQueryView"
       permission="zope2.View"
       />
+    <browser:resource
+      name="jqueryuicalendarportlet.js"
+      file="jqueryuicalendarportlet.js"/>
+    <browser:resource
+      name="jqueryuicalendarportlet.css"
+      file="jqueryuicalendarportlet.css"/>
 </configure>

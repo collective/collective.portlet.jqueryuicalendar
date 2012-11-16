@@ -1,30 +1,11 @@
 <div class="portlet portletjQueryUICalendarPortlet"
     i18n:domain="collective.portlet.jqueryuicalendar">
-
   <div id="datepicker"></div>
-
-<script type="text/javascript">
-
-jQuery(function($){
-  $.ajax("@@jqueryuicalendar.json").done(function(data, textStatus, jqXHR){
-    console.log(data);
-    function hasEventsIn(date){
-      var key = $.datepicker.formatDate('yy-mm-dd', date);
-      if (key in data){
-        return [true, '', '' + data[key].length +' events'];
-      }
-      return [false];
-    }
-    $('#datepicker').datepicker({
-      inline: true,
-      beforeShowDay: hasEventsIn,
-    });
-  });
-});
-</script>
-<style type="text/css">
-.portlet .ui-datepicker {
-width: 100%;
-}
-</style>
+  <div id="eventtemplate" style="display:none">
+   <time class="timeago" datetime="2015-10-15T19:00-08:00"></time>
+   <h2 class="eventtitle"></h2>
+   <p class="description"></p>
+   <a href="" i18n:translate="more">more</a>
+  </div>
+  <div id="eventdialog"></div>
 </div>

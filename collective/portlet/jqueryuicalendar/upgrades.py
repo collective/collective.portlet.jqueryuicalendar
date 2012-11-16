@@ -1,5 +1,5 @@
 from Products.CMFCore.utils import getToolByName
-PROFILE = 'profile-collective.js.jqueryui:default'
+PROFILE = 'profile-collective.portlet.jqueryuicalendar:default'
 
 
 def common(context):

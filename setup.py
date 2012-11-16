@@ -26,6 +26,7 @@ setup(name='collective.portlet.jqueryuicalendar',
       install_requires=[
           'setuptools',
           'collective.js.jqueryui',
+          'collective.js.timeago',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
