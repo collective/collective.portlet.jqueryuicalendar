@@ -24,8 +24,9 @@ jQuery(function($){
     	}
         $('#eventdialog').html(eventText);
         $('#eventdialog').dialog({title: events[0].title,
-                                  draggable: false, resizable: false,
-                                  position: { of: "#datepicker"}
+                                  resizable: false,
+                                  position: { of: "#datepicker"},
+                                  show: "slow"
                                   });
 
     }

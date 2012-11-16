@@ -1,6 +1,9 @@
-.portlet .ui-datepicker {
+.portletjQueryUICalendarPortlet .ui-datepicker {
 width: 100%;
 }
-.portlet .ui-datepicker-today{
+.portletjQueryUICalendarPortlet .ui-datepicker-today{
   border: 1px solid green;
+}
+#eventdialog a{
+	color: #205C90;
 }

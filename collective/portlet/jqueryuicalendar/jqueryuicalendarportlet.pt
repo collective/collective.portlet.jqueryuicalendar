@@ -5,7 +5,7 @@
    <time class="timeago" datetime="2015-10-15T19:00-08:00"></time>
    <h2 class="eventtitle"></h2>
    <p class="description"></p>
-   <a href="" i18n:translate="more">more</a>
+   <a href="" i18n:domain="plone" i18n:translate="more_url">more</a>
   </div>
   <div id="eventdialog"></div>
 </div>
